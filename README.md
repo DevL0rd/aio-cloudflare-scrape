@@ -1,4 +1,4 @@
-cloudflare-scrape
+aio-cloudflare-scrape
 =================
 
 A simple Python module to bypass Cloudflare's anti-bot page (also known as "I'm Under Attack Mode", or IUAM), implemented with [Requests](https://github.com/kennethreitz/requests). Python versions 2.6 - 3.7 are supported. Cloudflare changes their techniques periodically, so I will update this repo frequently.
