@@ -107,7 +107,7 @@ class CloudflareScraper(ClientSession):
     @staticmethod
     async def is_cloudflare_iuam_challenge(resp):
         return (
-            resp.status_code in (503, 429)
+            resp.status in (503, 429)
             and resp.headers.get("Server", "").startswith("cloudflare")
             and b"jschl_vc" in await resp.text()
             and b"jschl_answer" in await resp.text()
@@ -116,7 +116,7 @@ class CloudflareScraper(ClientSession):
     @staticmethod
     async def is_cloudflare_captcha_challenge(resp):
         return (
-            resp.status_code == 403
+            resp.status == 403
             and resp.headers.get("Server", "").startswith("cloudflare")
             and b"/cdn-cgi/l/chk_captcha" in await resp.text()
         )
