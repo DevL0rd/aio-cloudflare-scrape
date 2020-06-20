@@ -1,4 +1,4 @@
 [run]
-source = cfscrape
+source = aiocfscrape
 omit =
     *test*

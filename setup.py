@@ -11,12 +11,13 @@ def get_long_description():
         return f.read()
 
 
-with open(os.path.join(base_path, "cfscrape", "__init__.py")) as f:
-    VERSION = re.compile(r'.*__version__ = "(.*?)"', re.S).match(f.read()).group(1)
+with open(os.path.join(base_path, "aiocfscrape", "__init__.py")) as f:
+    VERSION = re.compile(r'.*__version__ = "(.*?)"',
+                         re.S).match(f.read()).group(1)
 
 setup(
-    name="cfscrape",
-    packages=["cfscrape"],
+    name="aiocfscrape",
+    packages=["aiocfscrape"],
     version=VERSION,
     description='A simple Python module to bypass Cloudflare\'s anti-bot page. See https://github.com/Anorov/cloudflare-scrape for more information.',
     long_description=get_long_description(),

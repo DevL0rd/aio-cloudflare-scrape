@@ -154,8 +154,7 @@ class CloudflareScraper(ClientSession):
 
     async def solve_cf_challenge(self, resp, **original_kwargs):
         start_time = time.time()
-
-        body = resp.text
+        body = await resp.text()
         parsed_url = urlparse(str(resp.url))
         domain = parsed_url.netloc
         challenge_form = re.search(
@@ -366,11 +365,11 @@ class CloudflareScraper(ClientSession):
         return result, delay
 
     @classmethod
-    def create_scraper(cls, sess=None, **kwargs):
+    def create_scraper(self, sess=None, **kwargs):
         """
         Convenience function for creating a ready-to-go CloudflareScraper object.
         """
-        scraper = cls(**kwargs)
+        scraper = self(**kwargs)
 
         if sess:
             attrs = [
@@ -394,20 +393,19 @@ class CloudflareScraper(ClientSession):
     # Functions for integrating cloudflare-scrape with other applications and scripts
 
     @classmethod
-    def get_tokens(cls, url, user_agent=None, **kwargs):
-        scraper = cls.create_scraper()
+    async def get_tokens(self, url, user_agent=None, **kwargs):
+        scraper = self.create_scraper()
         if user_agent:
             scraper.headers["User-Agent"] = user_agent
 
         try:
-            resp = scraper.get(url, **kwargs)
-            resp.raise_for_status()
+            resp = await scraper.get(url, **kwargs, raise_for_status=True)
         except Exception:
             logging.error(
                 "'%s' returned an error. Could not collect tokens." % url)
             raise
 
-        domain = urlparse(resp.url).netloc
+        domain = urlparse(str(resp.url)).netloc
         cookie_domain = None
 
         for d in scraper.cookies.list_domains():
@@ -430,11 +428,11 @@ class CloudflareScraper(ClientSession):
         )
 
     @classmethod
-    def get_cookie_string(cls, url, user_agent=None, **kwargs):
+    async def get_cookie_string(self, url, user_agent=None, **kwargs):
         """
         Convenience function for building a Cookie HTTP header value.
         """
-        tokens, user_agent = cls.get_tokens(
+        tokens, user_agent = await self.get_tokens(
             url, user_agent=user_agent, **kwargs)
         return "; ".join("=".join(pair) for pair in tokens.items()), user_agent
 

@@ -24,14 +24,14 @@ ci:
 	pipenv run py.test tests
 
 lint:
-	pipenv run flake8 --ignore $(pep8-rules) cfscrape tests setup.py
+	pipenv run flake8 --ignore $(pep8-rules) aiocfscrape tests setup.py
 
 format:
 	# Automatic reformatting
-	pipenv run autopep8 -aaa --ignore $(pep8-rules) --in-place --recursive cfscrape tests setup.py
+	pipenv run autopep8 -aaa --ignore $(pep8-rules) --in-place --recursive aiocfscrape tests setup.py
 
 coverage:
-	pipenv run py.test --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=cfscrape tests
+	pipenv run py.test --cov-config .coveragerc --verbose --cov-report term --cov-report xml --cov=aiocfscrape tests
 	pipenv run coveralls
 
 publish:

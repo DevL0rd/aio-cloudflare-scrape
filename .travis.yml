@@ -12,8 +12,8 @@ matrix:
         - python: '3.7'
           dist: xenial
           sudo: true
-        - env: cfscrape_node='4.5'
-        - env: cfscrape_node='node'
+        - env: aiocfscrape_node='4.5'
+        - env: aiocfscrape_node='node'
         - os: osx
           language: node_js
           node_js: node
@@ -26,10 +26,10 @@ cache: pip
 
 before_install:
    - |
-     if [ -n "${cfscrape_node}" ]; then
+     if [ -n "${aiocfscrape_node}" ]; then
        source ~/.nvm/nvm.sh
-       nvm install "${cfscrape_node}"
-       nvm use "${cfscrape_node}"
+       nvm install "${aiocfscrape_node}"
+       nvm use "${aiocfscrape_node}"
      fi
 
 install:

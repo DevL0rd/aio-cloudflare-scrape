@@ -21,12 +21,12 @@ environment:
 
 install:
   - ps: >-
-      If ($env:cfscrape_node -ne $null) {
-        If ($env:cfscrape_node -Match "node") {
+      If ($env:aiocfscrape_node -ne $null) {
+        If ($env:aiocfscrape_node -Match "node") {
           Install-Product node ""
         }
         Else {
-          Install-Product node $env:cfscrape_node
+          Install-Product node $env:aiocfscrape_node
         }
       }
   - 'set PATH=%PYTHON%;%PYTHON%/Scripts;%PATH%'

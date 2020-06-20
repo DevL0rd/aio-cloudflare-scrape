@@ -1,14 +1,14 @@
 import aiohttp
-import cfscrape
+import aiocfscrape
 import asyncio
 
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        scraper = cfscrape.create_scraper(sess=session)
-        print(await scraper.get("https://www.43einhalb.com/en/sneaker"))
+        scraper = aiocfscrape.create_scraper(sess=session)
+        res = await scraper.get("https://www.slamjam.com/en_US/man/footwear/sneakers/low/common-project/original-achilles-low-sneakers/J169893.html")
+        print(await res.text())
+        scraper.close()
     return
 
-loop = asyncio.get_event_loop()
-loop.create_task(main())
-loop.run_forever()
+asyncio.run(main())
